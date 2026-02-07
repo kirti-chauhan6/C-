@@ -34,7 +34,7 @@ int main() {
 
 
 
-//Write a function square(int) and call it:
+//**Write a function square(int) and call it:
 
 Normally
 
@@ -51,7 +51,7 @@ int square(int x) {
 }
 
 int main() {
-    int num = 5;
+    int num = 5;**
 
     // 1️⃣ Normal function call
     cout << "Normal call result: " << square(num) << endl;
