@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main() {
+    int n;
+
+    // Number of strings
+    cout << "Enter number of strings: ";
+    cin >> n;
+    cin.ignore(); // clear newline from input buffer
+
+    // Dynamically allocate array of pointers
+    char** arr = new char*[n];
+
+    // Input strings
+    for (int i = 0; i < n; i++) {
+        char temp[100];
+
+        cout << "Enter string " << i + 1 << ": ";
+        cin.getline(temp, 100);
+
+        // Allocate memory for each string
+        arr[i] = new char[strlen(temp) + 1];
+        strcpy(arr[i], temp);
+    }
+
+    // Print strings
+    cout << "\nStored strings are:\n";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << endl;
+    }
+
+    // Free memory for each string
+    for (int i = 0; i < n; i++) {
+        delete[] arr[i];
+    }
+
+    // Free array of pointers
+    delete[] arr;
+
+    return 0;
+}
