@@ -1,0 +1,99 @@
+#include <iostream>
+using namespace std;
+
+class CircularBuffer {
+    int *buffer;
+    int size;
+    int front, rear, count;
+
+public:
+    // Constructor: allocate memory
+    CircularBuffer(int s) {
+        size = s;
+        buffer = new int[size];
+        front = 0;
+        rear = -1;
+        count = 0;
+    }
+
+    // Add element (enqueue)
+    void add(int value) {
+        if (count == size) {
+            cout << "Buffer Overflow! Cannot add element.\n";
+            return;
+        }
+        rear = (rear + 1) % size;
+        buffer[rear] = value;
+        count++;
+        cout << "Element added.\n";
+    }
+
+    // Remove element (dequeue)
+    void remove() {
+        if (count == 0) {
+            cout << "Buffer Underflow! Cannot remove element.\n";
+            return;
+        }
+        cout << "Removed element: " << buffer[front] << endl;
+        front = (front + 1) % size;
+        count--;
+    }
+
+    // Display buffer elements
+    void display() {
+        if (count == 0) {
+            cout << "Buffer is empty.\n";
+            return;
+        }
+        cout << "Buffer elements: ";
+        for (int i = 0; i < count; i++) {
+            cout << buffer[(front + i) % size] << " ";
+        }
+        cout << endl;
+    }
+
+    // Destructor: free memory
+    ~CircularBuffer() {
+        delete[] buffer;
+    }
+};
+
+int main() {
+    int size, choice, value;
+
+    cout << "Enter buffer size: ";
+    cin >> size;
+
+    CircularBuffer cb(size);
+
+    do {
+        cout << "\n1. Add element\n2. Remove element\n3. Display buffer\n4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to add: ";
+                cin >> value;
+                cb.add(value);
+                break;
+
+            case 2:
+                cb.remove();
+                break;
+
+            case 3:
+                cb.display();
+                break;
+
+            case 4:
+                cout << "Exiting program.\n";
+                break;
+
+            default:
+                cout << "Invalid choice.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
